@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:renthub_app/screens/home_rent_screen.dart';
+import 'package:renthub_app/screens/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeId = 'login_screen';
@@ -8,8 +9,8 @@ class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
-class _LoginScreenState extends State<LoginScreen> {
 
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,36 +22,32 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Container(),
             TextField(
-              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Email',
+                hintText: 'Username',
               ),
             ),
             SizedBox(height: 8.0),
             TextField(
-
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 suffixIcon: IconButton(
                   icon: Icon(Icons.visibility_off),
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                 ),
                 hintText: 'Password',
               ),
             ),
             SizedBox(height: 24.0),
             MaterialButton(
-              child: Text('Login'),
-              color: Theme.of(context).primaryColor,
-              textTheme: ButtonTextTheme.primary,
-              height: 40,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              onPressed: () {}
-            ),
+                child: Text('Login'),
+                color: Theme.of(context).primaryColor,
+                textTheme: ButtonTextTheme.primary,
+                height: 40,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                onPressed: () {}),
             TextButton(
               child: Text('Belum punya akun? register disini'),
               onPressed: () {
@@ -62,5 +59,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
 }
