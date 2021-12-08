@@ -6,6 +6,7 @@ void main() {
   runApp(const MyApp());
 }
 
+//TEST GIT
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -21,8 +22,6 @@ class MyApp extends StatelessWidget {
         SplashScreen.routeId: (context) => SplashScreen(),
         LoginScreen.routeId: (context) => LoginScreen(),
       },
-      
     );
   }
 }
-
