@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:renthub_app/screens/home_rent_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeId = 'login_screen';
@@ -52,7 +53,9 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextButton(
               child: Text('Belum punya akun? register disini'),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, HomeRentScreen.routeId);
+              },
             ),
           ],
         ),
