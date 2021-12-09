@@ -46,13 +46,13 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          color: Color(0xFF0d0b33),
+          color: Color(0xFF070b2b),
         ),
         child: Center(
             child: SlideTransition(
           position: _offsetAnimation,
           child: Icon(
-            Icons.fastfood_rounded,
+            Icons.checkroom_rounded,
             color: Colors.white,
             size: 60,
           ),
