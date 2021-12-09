@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
+import 'package:renthub_app/screens/list_rent_screen.dart';
 import 'package:renthub_app/screens/login_screen.dart';
 
 class HomeRentScreen extends StatefulWidget{
@@ -42,7 +43,7 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
             title: "Akun",
           )
         ],
-        initialSelection: 1,
+        initialSelection: 0,
         key: bottomNavKey,
         onTabChangedListener: (position) {
           setState(() {
@@ -158,7 +159,7 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
           ],
         );
       case 1:
-        return Column();
+        return ListRentScreen();
       case 2:
         return Column();
       case 3:

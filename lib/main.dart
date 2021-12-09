@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:renthub_app/screens/home_rent_screen.dart';
 import 'package:renthub_app/screens/home_cust_screen.dart';
 import 'package:renthub_app/screens/list_clothes_screen.dart';
+import 'package:renthub_app/screens/list_rent_screen.dart';
 import 'package:renthub_app/screens/login_screen.dart';
 import 'package:renthub_app/screens/splash_screen.dart';
+import 'package:renthub_app/screens/update_product_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,6 +29,8 @@ class MyApp extends StatelessWidget {
         HomeRentScreen.routeId: (context) => HomeRentScreen(),
         HomeCustcreen.routeId: (context) => HomeCustcreen(),
         ListClothesScreen.routeId: (context) => ListClothesScreen(),
+        ListRentScreen.routeId: (context) => ListRentScreen(),
+        UpdateProductScreen.routeId: (context) => UpdateProductScreen(),
       },
     );
   }
