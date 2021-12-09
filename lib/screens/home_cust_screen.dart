@@ -1,6 +1,7 @@
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:renthub_app/screens/list_clothes_screen.dart';
+import 'package:renthub_app/screens/profile_cust_screen.dart';
 
 class HomeCustcreen extends StatefulWidget {
   static const String routeId = 'home_cust_screen';
@@ -16,7 +17,7 @@ class _HomeCustcreen extends State<HomeCustcreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Renthub"),
+        title: const Text("Renthub"),
       ),
       body: Center(
         child: _getScreen(currScreen),
@@ -54,7 +55,7 @@ class _HomeCustcreen extends State<HomeCustcreen> {
       case 1:
         return ListClothesScreen();
       case 2:
-        return Column();
+        return ProfileCustScreen();
     }
   }
 }
