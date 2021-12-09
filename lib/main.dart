@@ -9,6 +9,7 @@ import 'package:renthub_app/screens/list_return_screen.dart';
 import 'package:renthub_app/screens/login_screen.dart';
 import 'package:renthub_app/screens/splash_screen.dart';
 import 'package:renthub_app/screens/update_product_screen.dart';
+import 'package:renthub_app/screens/detail_clothes_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         ListOrderScreen.routeId: (context) => ListOrderScreen(),
         ListCustOrder.routeId: (context) => ListCustOrder(),
         ListReturnScreen.routeId: (context) => ListReturnScreen(),
+        DetailClothesScreen.routeId: (context) => DetailClothesScreen(),
       },
     );
   }
