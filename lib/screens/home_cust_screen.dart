@@ -18,10 +18,8 @@ class _HomeCustcreen extends State<HomeCustcreen> {
       appBar: AppBar(
         title: Text("Renthub"),
       ),
-      body: Container(
-        child: Center(
-          child: _getScreen(currScreen),
-        ),
+      body: Center(
+        child: _getScreen(currScreen),
       ),
       bottomNavigationBar: FancyBottomNavigation(
         tabs: [
