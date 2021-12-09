@@ -34,8 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 suffixIcon: IconButton(
                   icon: Icon(Icons.visibility_off),
                   onPressed: () {
-                    Navigator.pushReplacementNamed(
-                        context, HomeRentScreen.routeId);
+                    
                   },
                 ),
                 hintText: 'Password',
@@ -50,7 +49,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  Navigator.pushReplacementNamed(
+                      context, HomeRentScreen.routeId);
+                }),
             TextButton(
               child: Text('Belum punya akun? register disini'),
               onPressed: () {

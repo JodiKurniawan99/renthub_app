@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Renthub App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.blue,
       ),
       initialRoute: SplashScreen.routeId,
       routes: {
