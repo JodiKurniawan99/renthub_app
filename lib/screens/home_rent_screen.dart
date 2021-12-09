@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
+import 'package:renthub_app/screens/list_cust_order.dart';
 import 'package:renthub_app/screens/list_order_screen.dart';
 import 'package:renthub_app/screens/list_rent_screen.dart';
+import 'package:renthub_app/screens/list_return_screen.dart';
 import 'package:renthub_app/screens/login_screen.dart';
 
 class HomeRentScreen extends StatefulWidget{
@@ -98,7 +100,9 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
               child: Card(
                 child: InkWell(
                   splashColor: Colors.blueAccent.withAlpha(20),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, ListCustOrder.routeId);
+                  },
                   child: Center(
                       child: Column(
                     children: <Widget>[
@@ -130,7 +134,9 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
               child: Card(
                 child: InkWell(
                   splashColor: Colors.blueAccent.withAlpha(20),
-                  onTap: () {},
+                  onTap: () {
+                     Navigator.pushNamed(context, ListReturnScreen.routeId);
+                  },
                   child: Center(
                       child: Column(
                     children: <Widget>[

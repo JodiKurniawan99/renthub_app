@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:renthub_app/screens/home_rent_screen.dart';
 import 'package:renthub_app/screens/home_cust_screen.dart';
 import 'package:renthub_app/screens/list_clothes_screen.dart';
+import 'package:renthub_app/screens/list_cust_order.dart';
 import 'package:renthub_app/screens/list_order_screen.dart';
 import 'package:renthub_app/screens/list_rent_screen.dart';
+import 'package:renthub_app/screens/list_return_screen.dart';
 import 'package:renthub_app/screens/login_screen.dart';
 import 'package:renthub_app/screens/splash_screen.dart';
 import 'package:renthub_app/screens/update_product_screen.dart';
@@ -33,6 +35,8 @@ class MyApp extends StatelessWidget {
         ListRentScreen.routeId: (context) => ListRentScreen(),
         UpdateProductScreen.routeId: (context) => UpdateProductScreen(),
         ListOrderScreen.routeId: (context) => ListOrderScreen(),
+        ListCustOrder.routeId: (context) => ListCustOrder(),
+        ListReturnScreen.routeId: (context) => ListReturnScreen(),
       },
     );
   }
