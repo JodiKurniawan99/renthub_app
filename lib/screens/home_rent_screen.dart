@@ -168,7 +168,97 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
       case 1:
         return ListRentScreen();
       case 2:
-        return Column();
+         return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Card(
+                child: InkWell(
+                  splashColor: Colors.blueAccent.withAlpha(20),
+                  onTap: () {
+                    Navigator.pushNamed(context, ListOrderScreen.routeId);
+                  },
+                  child: Center(
+                    child: Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 30,
+                        height: 70,
+                      ),
+                      Icon(Icons.home),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Informasi toko"
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  )),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10), // if you need this
+                  side: BorderSide(
+                    color: Colors.grey.withOpacity(0.2),
+                    width: 1,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Card(
+                child: InkWell(
+                  splashColor: Colors.blueAccent.withAlpha(20),
+                  onTap: () {
+                    Navigator.pushNamed(context, ListOrderScreen.routeId);
+                  },
+                  child: Center(
+                      child: Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 30,
+                        height: 70,
+                      ),
+                      Icon(Icons.settings),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text("Pengaturan"),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  )),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10), // if you need this
+                  side: BorderSide(
+                    color: Colors.grey.withOpacity(0.2),
+                    width: 1,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height:30),
+            MaterialButton(
+                child: Text('Logout'),
+                color: Theme.of(context).primaryColor,
+                textTheme: ButtonTextTheme.primary,
+                height: 40,
+                minWidth: 320,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                onPressed: () {
+                  Navigator.pushReplacementNamed(
+                      context, HomeRentScreen.routeId);
+                }),
+          ],
+        );
        
     }
   }
