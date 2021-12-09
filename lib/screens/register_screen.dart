@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:renthub_app/screens/login_screen.dart';
+import 'package:renthub_app/screens/home_cust_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -14,20 +16,19 @@ class _RegisterScreen extends State<RegisterScreen> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(),
               SizedBox(height: 100.0),
               Text('REGISTRATION',
-                  style: TextStyle(
-                      fontSize: 40.0,
-                      color: Color(0xff151528),
-                      fontWeight: FontWeight.bold)),
+                  textAlign: TextAlign.center,
+                  style:
+                      TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold)),
               SizedBox(height: 50.0),
               TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.person, color: Color(0xff151528)),
+                  prefixIcon: Icon(Icons.person),
                   hintText: 'Name',
                 ),
               ),
@@ -35,8 +36,7 @@ class _RegisterScreen extends State<RegisterScreen> {
               TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  prefixIcon:
-                      Icon(Icons.alternate_email, color: Color(0xff151528)),
+                  prefixIcon: Icon(Icons.alternate_email),
                   hintText: 'Username',
                 ),
               ),
@@ -45,7 +45,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                 obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.lock, color: Color(0xff151528)),
+                  prefixIcon: Icon(Icons.lock),
                   hintText: 'Password',
                 ),
               ),
@@ -54,7 +54,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.phone, color: Color(0xff151528)),
+                  prefixIcon: Icon(Icons.phone),
                   hintText: 'Phone Number',
                 ),
               ),
@@ -64,24 +64,32 @@ class _RegisterScreen extends State<RegisterScreen> {
                 maxLines: null,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.home, color: Color(0xff151528)),
+                  prefixIcon: Icon(Icons.home),
                   hintText: 'Address',
                 ),
               ),
               SizedBox(height: 24.0),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 15.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Color(0xff151528)),
-                  child: Center(
-                    child: Text('Register',
-                        style: TextStyle(color: Colors.white, fontSize: 20.0)),
+              MaterialButton(
+                  child: Text('Register'),
+                  color: Theme.of(context).primaryColor,
+                  textTheme: ButtonTextTheme.primary,
+                  height: 40,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                ),
-              )
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HomeCustcreen()));
+                  }),
+              TextButton(
+                child: Text('Already Registered? Login'),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                },
+              ),
             ],
           ),
         ),
