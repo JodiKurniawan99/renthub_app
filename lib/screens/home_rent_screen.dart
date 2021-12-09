@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
+import 'package:renthub_app/screens/list_cust_order.dart';
+import 'package:renthub_app/screens/list_order_screen.dart';
 import 'package:renthub_app/screens/list_rent_screen.dart';
+import 'package:renthub_app/screens/list_return_screen.dart';
 import 'package:renthub_app/screens/login_screen.dart';
 
 class HomeRentScreen extends StatefulWidget{
@@ -35,9 +38,6 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
               iconData: Icons.burst_mode_rounded,
               title: "Produk",
           ),
-          TabData(iconData: Icons.notes, 
-              title: "Pesanan",
-          ),
           TabData(
             iconData: Icons.account_circle,
             title: "Akun",
@@ -65,7 +65,10 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
               child: Card(
                 child: InkWell(
                   splashColor: Colors.blueAccent.withAlpha(20),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, ListOrderScreen.routeId);
+                  },
                   child: Center(
                       child: Column(
                     children: <Widget>[
@@ -97,7 +100,9 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
               child: Card(
                 child: InkWell(
                   splashColor: Colors.blueAccent.withAlpha(20),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, ListCustOrder.routeId);
+                  },
                   child: Center(
                       child: Column(
                     children: <Widget>[
@@ -129,7 +134,9 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
               child: Card(
                 child: InkWell(
                   splashColor: Colors.blueAccent.withAlpha(20),
-                  onTap: () {},
+                  onTap: () {
+                     Navigator.pushNamed(context, ListReturnScreen.routeId);
+                  },
                   child: Center(
                       child: Column(
                     children: <Widget>[
@@ -161,8 +168,6 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
       case 1:
         return ListRentScreen();
       case 2:
-        return Column();
-      case 3:
         return Column();
        
     }
