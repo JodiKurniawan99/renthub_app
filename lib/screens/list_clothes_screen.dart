@@ -12,15 +12,17 @@ class _ListClothesScreen extends State<ListClothesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridView.count(
-        primary: false,
-        padding: const EdgeInsets.all(10),
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        crossAxisCount: 2,
-        childAspectRatio: (1 / 1.5),
-        children: <Widget>[
-          Card(
+        body: GridView.count(
+      primary: false,
+      padding: const EdgeInsets.all(10),
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      crossAxisCount: 2,
+      childAspectRatio: (1 / 1.5),
+      children: List.generate(
+        5,
+        (index) {
+          return Card(
             elevation: 2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -55,9 +57,9 @@ class _ListClothesScreen extends State<ListClothesScreen> {
                     const SizedBox(height: 5.0),
                   ],
                 )),
-          )
-        ],
+          );
+        },
       ),
-    );
+    ));
   }
 }
