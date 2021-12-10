@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
@@ -16,6 +17,7 @@ class HomeRentScreen extends StatefulWidget{
 class _HomeRentScreenState extends State<HomeRentScreen>{
   int currScreen = 0;
   GlobalKey bottomNavKey = GlobalKey();
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -253,9 +255,10 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  await _auth.signOut();
                   Navigator.pushReplacementNamed(
-                      context, HomeRentScreen.routeId);
+                      context, LoginScreen.routeId);
                 }),
           ],
         );

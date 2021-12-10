@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:renthub_app/screens/login_cust_screen.dart';
 import 'package:renthub_app/screens/login_screen.dart';
 
 class ProfileCustScreen extends StatefulWidget {
@@ -8,6 +10,7 @@ class ProfileCustScreen extends StatefulWidget {
 
 class _ProfileCustScreen extends State<ProfileCustScreen> {
   @override
+   final _auth = FirebaseAuth.instance;
   Widget build(BuildContext context) {
     return Scaffold(body: customerProfile());
   }
@@ -121,9 +124,10 @@ class _ProfileCustScreen extends State<ProfileCustScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      onPressed: () {
+                      onPressed: ()  async {
+                        await _auth.signOut();
                         Navigator.pushReplacementNamed(
-                            context, LoginScreen.routeId);
+                            context, LoginCustScreen.routeId);
                       }),
                 ),
               ),

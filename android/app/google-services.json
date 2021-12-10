@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "978060853055",
+    "project_id": "renthub-app",
+    "storage_bucket": "renthub-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978060853055:android:8f71dd02df3d798c381d8a",
+        "android_client_info": {
+          "package_name": "com.example.renthub_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978060853055-ktpffunljagov1d7am3pjv3varjfe75t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpOtfm9HM5Tqeeyr0dRfxlvEOjW7MNP14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978060853055-ktpffunljagov1d7am3pjv3varjfe75t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
