@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:renthub_app/screens/home_cust_screen.dart';
 
 class DetailClothesScreen extends StatefulWidget {
   static const String routeId = 'detail_clothes_screen';
@@ -13,6 +14,12 @@ class _DetailClothesScreen extends State<DetailClothesScreen> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Detail Clothes"),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, HomeCustcreen.routeId);
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(children: <Widget>[

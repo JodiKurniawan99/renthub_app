@@ -18,6 +18,7 @@ class _HomeCustcreen extends State<HomeCustcreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Renthub"),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: _getScreen(currScreen),
