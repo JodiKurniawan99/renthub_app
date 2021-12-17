@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:renthub_app/screens/login_cust_screen.dart';
 import 'package:renthub_app/screens/login_screen.dart';
 
 class ProfileCustScreen extends StatefulWidget {
@@ -127,7 +126,7 @@ class _ProfileCustScreen extends State<ProfileCustScreen> {
                       onPressed: ()  async {
                         await _auth.signOut();
                         Navigator.pushReplacementNamed(
-                            context, LoginCustScreen.routeId);
+                            context, LoginScreen.routeId);
                       }),
                 ),
               ),

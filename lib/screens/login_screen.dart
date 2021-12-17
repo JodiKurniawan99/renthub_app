@@ -1,7 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:renthub_app/screens/home_cust_screen.dart';
 import 'package:renthub_app/screens/home_rent_screen.dart';
-import 'package:renthub_app/screens/login_cust_screen.dart';
 import 'package:renthub_app/screens/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -28,8 +29,9 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _isLoading ? Center(child: CircularProgressIndicator()):
-            Container(),
+            _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : Container(),
             TextField(
               controller: _email,
               decoration: InputDecoration(
@@ -49,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     setState(() {
                       _hiddenText = !_hiddenText;
-                    });  
+                    });
                   },
                 ),
                 hintText: 'Password',
@@ -57,37 +59,54 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 24.0),
             MaterialButton(
-                child: Text('Login'),
-                color: Theme.of(context).primaryColor,
-                textTheme: ButtonTextTheme.primary,
-                height: 40,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                onPressed: ()async  {
-                  setState(() {
-                   _isLoading = true;
-                  });
+              child: Text('Login'),
+              color: Theme.of(context).primaryColor,
+              textTheme: ButtonTextTheme.primary,
+              height: 40,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              onPressed: () async {
+                setState(() {
+                  _isLoading = true;
+                });
                 try {
-                   final email = _email.text;
-                   final password = _password.text;
- 
-                   await _auth.signInWithEmailAndPassword(
-                   email: email, password: password);
-                   Navigator.pushReplacementNamed(context, HomeRentScreen.routeId);
+                  final email = _email.text;
+                  final password = _password.text;
+
+                  UserCredential result =
+                      await _auth.signInWithEmailAndPassword(
+                          email: email, password: password);
+
+                  String uid = result.user!.uid;
+
+                  var userDoc = FirebaseFirestore.instance.collection('Users');
+                  var snapshot = await userDoc.doc(uid).get();
+                  if (snapshot.exists) {
+                    Map<String, dynamic>? data = snapshot.data();
+                    var value = data?['role'];
+                    if(value != 'customer'){
+                       Navigator.pushReplacementNamed(context, HomeRentScreen.routeId);
+                    }
+                    else{
+                      Navigator.pushReplacementNamed(context, HomeCustcreen.routeId);
+                    }                   
+                  }                 
                 } catch (e) {
                   final snackbar = SnackBar(content: Text(e.toString()));
                   ScaffoldMessenger.of(context).showSnackBar(snackbar);
                 } finally {
                   setState(() {
-                   _isLoading = false;
-                 });
+                    _isLoading = false;
+                  });
                 }
-            },),
+              },
+            ),
             TextButton(
-              child: Text('Login sebagai pengguna? klik disini'),
+              child: Text('Belum punya akun? klik disini'),
               onPressed: () {
-                Navigator.pushReplacementNamed(context,LoginCustScreen.routeId); 
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RegisterScreen()));
               },
             ),
           ],

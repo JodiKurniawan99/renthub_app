@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:renthub_app/data/model/cust_model.dart';
 import 'package:renthub_app/screens/login_screen.dart';
 import 'package:renthub_app/screens/home_cust_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -11,7 +13,10 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreen extends State<RegisterScreen> {
   final _email = TextEditingController();
   final _password = TextEditingController();
+  final _name = TextEditingController();
   final _auth = FirebaseAuth.instance;
+  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+
 
   bool _hiddenText = true;
   bool _isLoading = false;
@@ -35,6 +40,15 @@ class _RegisterScreen extends State<RegisterScreen> {
                     style:
                 TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold)),
                 SizedBox(height: 50.0),
+                TextField(
+                  controller: _name,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.people),
+                    hintText: 'Nama',
+                  ),
+                ),
+                SizedBox(height: 8.0),
                 TextField(
                   controller: _email,
                   decoration: InputDecoration(
@@ -67,11 +81,30 @@ class _RegisterScreen extends State<RegisterScreen> {
                       _isLoading = true;
                     });
                     try {
+                      final name = _name.text;
                       final email = _email.text;
                       final password = _password.text;
- 
-                      await _auth.createUserWithEmailAndPassword(
+
+                      UserCredential result = await _auth.createUserWithEmailAndPassword(
                       email: email, password: password);
+
+                      CustModel _user = CustModel(
+                        name: name, 
+                        email: email, 
+                        userid: result.user!.uid,
+                        role: 'customer'
+                      );
+
+                      await _firebaseFirestore
+                          .collection("Users")
+                          .doc(_user.userid)
+                          .set({
+                        'name': _user.name.trim(),
+                        'email': _user.email.trim(),
+                        'role': _user.role
+                  
+                      });
+                      
                       Navigator.pop(context);
                     } catch (e) {
                       final snackbar = SnackBar(content: Text(e.toString()));

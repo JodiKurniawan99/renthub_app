@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:renthub_app/screens/update_product_screen.dart';
 var arr = [
@@ -19,12 +20,21 @@ class ListRentScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-    itemCount: arr.length,
-    itemBuilder: (context, index) {
-      return _buildListItem(context, index);
-    },
-   ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('Users').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+            return ListView(
+              children: snapshot.data!.docs.map((document){
+                return Center(
+                  child: Text(document['name'])
+                );
+
+              }).toList(),
+
+            );
+              
+        } ,)
+      
     );
   }
 
@@ -44,7 +54,7 @@ Widget _buildListItem(BuildContext context, int index) {
     title: Text(arr[index]),
     subtitle: Text("Stok barang: 1"),
     onTap: () {Navigator.pushReplacementNamed(
-                      context, UpdateProductScreen.routeId);
-                },
+               context, UpdateProductScreen.routeId);
+              },
   );
 }
