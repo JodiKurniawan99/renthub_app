@@ -102,6 +102,16 @@ class _RegisterScreen extends State<RegisterScreen> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.lock),
+                    suffixIcon: IconButton(
+                      icon: Icon(_hiddenText
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          _hiddenText = !_hiddenText;
+                        });
+                      },
+                    ),
                     hintText: 'Password',
                   ),
                 ),
