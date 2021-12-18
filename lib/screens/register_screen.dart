@@ -77,6 +77,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                 TextField(
                   controller: _email,
                   textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.alternate_email),
@@ -115,7 +116,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                     hintText: 'Password',
                   ),
                 ),
-                SizedBox(height: 24.0),
+                SizedBox(height: 20.0),
                 MaterialButton(
                   child: Text('Sign Up'),
                   color: Theme.of(context).primaryColor,
@@ -149,10 +150,10 @@ class _RegisterScreen extends State<RegisterScreen> {
                           .collection("Users")
                           .doc(_user.userid)
                           .set({
-                        'name': _user.name.trim(),
-                        'email': _user.email.trim(),
+                        'name': _user.name!.trim(),
+                        'email': _user.email!.trim(),
                         'role': _user.role,
-                        'tlp': _user.tlp.trim()
+                        'tlp': _user.tlp!.trim()
                       });
 
                       showDialog(
@@ -204,13 +205,26 @@ class _RegisterScreen extends State<RegisterScreen> {
                     }
                   },
                 ),
-                TextButton(
-                  child: Text('Already sign up? Login'),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
-                  },
+                SizedBox(height: 8.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Already sign up? '),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
+                        },
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.blue),
+                        ))
+                  ],
                 ),
+                SizedBox(height: 50.0),
               ],
             ),
           ),

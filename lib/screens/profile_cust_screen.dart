@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:renthub_app/data/model/cust_model.dart';
 import 'package:renthub_app/screens/login_screen.dart';
 
 class ProfileCustScreen extends StatefulWidget {
@@ -8,132 +10,127 @@ class ProfileCustScreen extends StatefulWidget {
 }
 
 class _ProfileCustScreen extends State<ProfileCustScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
+  CustModel _user = CustModel();
+
   @override
-   final _auth = FirebaseAuth.instance;
-  Widget build(BuildContext context) {
-    return Scaffold(body: customerProfile());
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("Users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this._user = CustModel.fromMap(value.data());
+      setState(() {});
+    });
   }
 
-  Widget customerProfile() {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.fromLTRB(25, 25, 25, 10),
-          child: Stack(
-            children: const <Widget>[
-              CircleAvatar(
-                radius: 80,
-                backgroundImage: NetworkImage(
-                    "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: 35),
-          child: Text(
-            "jamesst01",
-            style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Expanded(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Name',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.blue),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: SizedBox(
-                  height: 30,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'James Styles',
-                      style: TextStyle(fontSize: 20.0),
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+                    child: Stack(
+                      children: const <Widget>[
+                        CircleAvatar(
+                          radius: 80,
+                          backgroundImage: NetworkImage(
+                              "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Phone Number',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.blue),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: SizedBox(
-                  height: 30,
-                  child: Align(
-                    alignment: Alignment.center,
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 35),
                     child: Text(
-                      '0856-5455-4141',
-                      style: TextStyle(fontSize: 20.0),
+                      "${_user.email}",
+                      style: TextStyle(fontSize: 25.0),
                     ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Address',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.blue),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 50.0),
-                child: SizedBox(
-                  height: 30,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Rainbow Street No. 45',
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: SizedBox(
-                  height: 30,
-                  child: MaterialButton(
-                      child: Text('Logout'),
-                      color: Theme.of(context).primaryColor,
-                      textTheme: ButtonTextTheme.primary,
-                      height: 40,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Name',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.blue),
                       ),
-                      onPressed: ()  async {
-                        await _auth.signOut();
-                        Navigator.pushReplacementNamed(
-                            context, LoginScreen.routeId);
-                      }),
-                ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child: SizedBox(
+                      height: 30,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          '${_user.name}',
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Phone Number',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.blue),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child: SizedBox(
+                      height: 30,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          '${_user.tlp}',
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10.0),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child: SizedBox(
+                      height: 30,
+                      child: MaterialButton(
+                          child: Text('Logout'),
+                          color: Theme.of(context).primaryColor,
+                          textTheme: ButtonTextTheme.primary,
+                          height: 40,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                                context, LoginScreen.routeId);
+                          }),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        )
-      ],
+        ),
+      ),
     );
   }
 }
