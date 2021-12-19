@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:renthub_app/screens/home_rent_screen.dart';
 
 class UpdateProductScreen extends StatelessWidget {
-  static const routeId = '/list_rent_screen';
+  static const routeId = '/update_product_screen';
 
   TextEditingController _controller = new TextEditingController();
 
