@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:renthub_app/screens/home_rent_screen.dart';
@@ -5,11 +8,14 @@ import 'package:renthub_app/screens/home_rent_screen.dart';
 class UpdateProductScreen extends StatelessWidget {
   static const routeId = '/update_product_screen';
 
-  TextEditingController _controller = new TextEditingController();
-
+  String? docProduct;
+  UpdateProductScreen(this.docProduct);
+  TextEditingController _name = new TextEditingController();
+  TextEditingController _stock = new TextEditingController();
+  CollectionReference _products = FirebaseFirestore.instance.collection('Products');
+                         
   @override
   Widget build(BuildContext context) {
-    _controller.text = 'baju adat';
 
     return Scaffold(
       appBar: AppBar(
@@ -32,9 +38,11 @@ class UpdateProductScreen extends StatelessWidget {
                     height: 10,
                   ),
                   TextField(
-                    controller: _controller,
+                    controller: _name,
+                    
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
+                      
                     ),
                   ),
                   SizedBox(
@@ -48,24 +56,14 @@ class UpdateProductScreen extends StatelessWidget {
                     height: 10,
                   ),
                   TextField(
-                    controller: _controller,
+                    controller: _stock,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
+                      
+                      
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Status produk",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text("Ubah status produk"),
-                        Switch.adaptive(value: true, onChanged: (value) {})
-                      ]),
+                  
                   SizedBox(
                     height: 30,
                   ),
@@ -86,8 +84,12 @@ class UpdateProductScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(
-                    context, HomeRentScreen.routeId);
+                  _products.doc(docProduct).update({
+                    'name': _name.text, 
+                    'stock': int.parse(_stock.text)
+                    
+                    });
+                  Navigator.pop(context);
                 }),
               
           ]
