@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:renthub_app/screens/detail_clothes_screen.dart';
@@ -12,54 +13,66 @@ class _ListClothesScreen extends State<ListClothesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: GridView.count(
-      primary: false,
-      padding: const EdgeInsets.all(10),
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-      crossAxisCount: 2,
-      childAspectRatio: (1 / 1.5),
-      children: List.generate(
-        5,
-        (index) {
-          return Card(
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: InkWell(
-                onTap: () {
-                  Navigator.pushReplacementNamed(
-                      context, DetailClothesScreen.routeId);
-                },
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                        child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                image: const DecorationImage(
-                                    image: NetworkImage(
-                                      "https://images.unsplash.com/photo-1594938328870-9623159c8c99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80",
-                                    ),
-                                    fit: BoxFit.cover)))),
-                    const SizedBox(height: 10.0),
-                    const Text(
-                      'Setelan Jas Navy',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-                    const Text(
-                      'RP. 100.000',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 5.0),
-                  ],
-                )),
-          );
-        },
-      ),
-    ));
+      body: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('Products').snapshots(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: Text('There is no product.'));
+            }
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 2,
+                childAspectRatio: (1 / 1.5),
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return Scaffold(
+                    body: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: InkWell(
+                            onTap: () {},
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            image: DecorationImage(
+                                                image: NetworkImage(snapshot
+                                                    .data.docs[index]
+                                                    .get('urlPhotos')),
+                                                fit: BoxFit.cover)))),
+                                const SizedBox(height: 8.0),
+                                Text(
+                                  snapshot.data.docs[index].get('name'),
+                                  textAlign: TextAlign.left,
+                                  style: const TextStyle(fontSize: 18.0),
+                                ),
+                                Text(
+                                  snapshot.data.docs[index]
+                                      .get('price')
+                                      .toString(),
+                                  textAlign: TextAlign.left,
+                                  style: const TextStyle(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 8.0),
+                              ],
+                            ),
+                          ),
+                        )));
+              },
+              itemCount: snapshot.data.docs.length,
+            );
+          }),
+    );
   }
 }
