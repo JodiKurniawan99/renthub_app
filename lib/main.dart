@@ -33,9 +33,8 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
         scaffoldBackgroundColor: Colors.white,
         textTheme: myTextTheme,
-        appBarTheme: AppBarTheme(backgroundColor: Colors.black),   
+        appBarTheme: AppBarTheme(backgroundColor: Colors.black),
       ),
-      
       initialRoute: SplashScreen.routeId,
       routes: {
         SplashScreen.routeId: (context) => SplashScreen(),
@@ -44,12 +43,15 @@ class MyApp extends StatelessWidget {
         HomeCustcreen.routeId: (context) => HomeCustcreen(),
         ListClothesScreen.routeId: (context) => ListClothesScreen(),
         ListRentScreen.routeId: (context) => ListRentScreen(),
-        UpdateProductScreen.routeId: (context) => UpdateProductScreen(ModalRoute.of(context)?.settings.arguments as dynamic),
+        UpdateProductScreen.routeId: (context) => UpdateProductScreen(
+            ModalRoute.of(context)?.settings.arguments as dynamic),
         ListOrderScreen.routeId: (context) => ListOrderScreen(),
         ListCustOrder.routeId: (context) => ListCustOrder(),
         ListReturnScreen.routeId: (context) => ListReturnScreen(),
         DetailClothesScreen.routeId: (context) => DetailClothesScreen(
-            product: ModalRoute.of(context)?.settings.arguments as ProductModel,),
+              product:
+                  ModalRoute.of(context)?.settings.arguments as ProductModel,
+            ),
         AddProductScreen.routeId: (context) => AddProductScreen(),
       },
     );
