@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:renthub_app/commons/styles.dart';
+import 'package:renthub_app/data/model/product_model.dart';
 import 'package:renthub_app/screens/add_product_screen.dart';
 import 'package:renthub_app/screens/home_rent_screen.dart';
 import 'package:renthub_app/screens/home_cust_screen.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
         scaffoldBackgroundColor: Colors.white,
         textTheme: myTextTheme,
-        appBarTheme: AppBarTheme(backgroundColor: Colors.black)
+        appBarTheme: AppBarTheme(backgroundColor: Colors.black),   
       ),
       
       initialRoute: SplashScreen.routeId,
@@ -47,7 +48,8 @@ class MyApp extends StatelessWidget {
         ListOrderScreen.routeId: (context) => ListOrderScreen(),
         ListCustOrder.routeId: (context) => ListCustOrder(),
         ListReturnScreen.routeId: (context) => ListReturnScreen(),
-        DetailClothesScreen.routeId: (context) => DetailClothesScreen(),
+        DetailClothesScreen.routeId: (context) => DetailClothesScreen(
+            product: ModalRoute.of(context)?.settings.arguments as ProductModel,),
         AddProductScreen.routeId: (context) => AddProductScreen(),
       },
     );

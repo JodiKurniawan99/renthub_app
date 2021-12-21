@@ -9,10 +9,14 @@ class UpdateProductScreen extends StatelessWidget {
   static const routeId = '/update_product_screen';
 
   String? docProduct;
+  String? docName;
+  int? docStock;
   UpdateProductScreen(this.docProduct);
   TextEditingController _name = new TextEditingController();
   TextEditingController _stock = new TextEditingController();
   CollectionReference _products = FirebaseFirestore.instance.collection('Products');
+
+
                          
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,8 @@ class UpdateProductScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Ubah produk"), 
       ),
-      body: Padding(
+      body: 
+          Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,7 +46,8 @@ class UpdateProductScreen extends StatelessWidget {
                     controller: _name,
                     
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                    border: OutlineInputBorder(),
+                    hintText: "Isi nama terbaru"
                       
                     ),
                   ),
@@ -58,9 +64,8 @@ class UpdateProductScreen extends StatelessWidget {
                   TextField(
                     controller: _stock,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      
-                      
+                    border: OutlineInputBorder(),
+                    hintText: "Isi stok terbaru"
                     ),
                   ),
                   
@@ -87,7 +92,6 @@ class UpdateProductScreen extends StatelessWidget {
                   _products.doc(docProduct).update({
                     'name': _name.text, 
                     'stock': int.parse(_stock.text)
-                    
                     });
                   Navigator.pop(context);
                 }),
@@ -95,6 +99,8 @@ class UpdateProductScreen extends StatelessWidget {
           ]
         )
       )
+     
+
     );
   }
 }

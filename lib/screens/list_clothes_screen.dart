@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:renthub_app/data/model/product_model.dart';
 import 'package:renthub_app/screens/detail_clothes_screen.dart';
 
 class ListClothesScreen extends StatefulWidget {
@@ -36,7 +37,22 @@ class _ListClothesScreen extends State<ListClothesScreen> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              // tes
+                              ProductModel product = ProductModel(
+                                name: snapshot.data.docs[index].get('name'), 
+                                stock: snapshot.data.docs[index].get('price'), 
+                                urlPhotos:snapshot.data.docs[index].get('urlPhotos'), 
+                                price: snapshot.data.docs[index].get('price'), 
+                                denda: snapshot.data.docs[index].get('denda'), 
+                                description: snapshot.data.docs[index].get('description')
+                                );
+                               
+                               Navigator.pushNamed(
+                                  context, DetailClothesScreen.routeId,
+                                  arguments: product);
+
+                            },
                             child: Column(
                               children: <Widget>[
                                 Expanded(

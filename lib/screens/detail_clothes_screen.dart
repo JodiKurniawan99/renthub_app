@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:renthub_app/data/model/product_model.dart';
 import 'package:renthub_app/screens/home_cust_screen.dart';
 
 class DetailClothesScreen extends StatefulWidget {
   static const String routeId = 'detail_clothes_screen';
+  
+  final ProductModel product;
+  const DetailClothesScreen({required this.product});
   @override
   _DetailClothesScreen createState() => _DetailClothesScreen();
+  
 }
 
 class _DetailClothesScreen extends State<DetailClothesScreen> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Detail Clothes"),
@@ -29,25 +35,26 @@ class _DetailClothesScreen extends State<DetailClothesScreen> {
                 height: 400.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  image: const DecorationImage(
+                  image:  DecorationImage(
                       image: NetworkImage(
-                        "https://images.unsplash.com/photo-1594938328870-9623159c8c99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80",
+                        widget.product.urlPhotos!,
                       ),
                       fit: BoxFit.cover),
                 ),
               ),
             ),
-            const Padding(
+             Padding(
               padding: EdgeInsets.all(10.0),
+
               child: Text(
-                'Setelan Jas Navy',
+                widget.product.name,
                 style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(bottom: 10.0),
               child: Text(
-                'RP. 100.000',
+                'RP. ${widget.product.price}',
                 style: TextStyle(fontSize: 20.0),
               ),
             ),
@@ -60,10 +67,10 @@ class _DetailClothesScreen extends State<DetailClothesScreen> {
                 style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 30.0, right: 30.0, bottom: 30.0),
               child: Text(
-                'Bahan terbuat dari kain pilihan terbaik sehingga nyaman dipakai. Cocok untuk menghadiri acara formal.',
+                widget.product.description,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 15.0),
               ),
