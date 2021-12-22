@@ -1,46 +1,135 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:renthub_app/data/model/cust_model.dart';
 
-class ListRentCustScreen extends StatelessWidget {
+class ListRentCustScreen extends StatefulWidget {
   static const routeId = 'list_rent_cust_screen';
 
   @override
-  Widget build(BuildContext context) {
-    final titles = ['Setelan Jas Navy', 'Setelan Jas Navy', 'Setelan Jas Navy'];
+  _ListRentCustScreen createState() => _ListRentCustScreen();
+}
 
-    return ListView.builder(
-      itemCount: titles.length,
-      itemBuilder: (context, index) {
-        return Card(
-          elevation: 3,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(8.0),
-            ),
-          ),
-          child: ListTile(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-            leading: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.network(
-                "https://images.unsplash.com/photo-1594938328870-9623159c8c99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80",
-                fit: BoxFit.cover,
-              ),
-            ),
-            title: Text(
-              titles[index],
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-            ),
-            subtitle: Text("Return date : 23 Desember 2021"),
-            trailing: IconButton(
-                icon: const Icon(
-                  Icons.check_circle_rounded,
-                  color: Colors.green,
-                ),
-                onPressed: () {}),
-          ),
-        );
-      },
-    );
+class _ListRentCustScreen extends State<ListRentCustScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
+  CustModel _user = CustModel();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("Users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      _user = CustModel.fromMap(value.data());
+      setState(() {});
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Sewa"),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+        ),
+        body: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('Rent')
+              .where('customerEmail', isEqualTo: '${_user.email}')
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            return snapshot.hasData
+                ? ListView(
+                    children: snapshot.data!.docs.map((document) {
+                      return Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 6.0),
+                          child: Card(
+                              color: Color(0xFFf2f2f2),
+                              elevation: 0.0,
+                              child: Column(children: <Widget>[
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Row(children: <Widget>[
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 8.0, top: 8.0),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image.network(
+                                            document['urlPhotos'],
+                                            width: 70,
+                                            height: 70,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              height: 8,
+                                            ),
+                                            Text(
+                                              document['product'],
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Sewa : ${document['dateRent'].toString()}",
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                              ),
+                                            ),
+                                            Text(
+                                              "Kembali : ${document['dateReturn'].toString()}",
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                              ),
+                                            ),
+                                            Text(
+                                                "Rp. " +
+                                                    document['cost'].toString(),
+                                                style: TextStyle(
+                                                    fontSize: 11,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ]),
+                                      SizedBox(
+                                        width: 30,
+                                      ),
+                                    ]),
+                                  ],
+                                ),
+                                SizedBox(height: 10),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Divider(color: Colors.grey),
+                                ),
+                                Container(
+                                    padding: EdgeInsets.only(
+                                        right: 10.0, bottom: 5.0),
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text('Status : ' +
+                                          document['status'].toString()),
+                                    ))
+                              ])));
+                    }).toList(),
+                  )
+                : Center(child: CircularProgressIndicator());
+          },
+        ));
   }
 }

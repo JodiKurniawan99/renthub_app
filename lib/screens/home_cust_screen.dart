@@ -17,10 +17,6 @@ class _HomeCustcreen extends State<HomeCustcreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Renthub"),
-        automaticallyImplyLeading: false,
-      ),
       body: Center(
         child: _getScreen(currScreen),
       ),
@@ -28,15 +24,15 @@ class _HomeCustcreen extends State<HomeCustcreen> {
         tabs: [
           TabData(
             iconData: Icons.history,
-            title: "Rent",
+            title: "Sewa",
           ),
           TabData(
             iconData: Icons.home,
-            title: "Home",
+            title: "Beranda",
           ),
           TabData(
             iconData: Icons.account_circle,
-            title: "Profile",
+            title: "Akun",
           )
         ],
         initialSelection: 1,
