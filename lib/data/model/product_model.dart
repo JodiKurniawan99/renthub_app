@@ -12,5 +12,6 @@ class ProductModel {
       required this.urlPhotos,
       required this.price,
       required this.denda,
-      required this.description});
+      required this.description,
+      });
 }

@@ -17,6 +17,7 @@ class _ListClothesScreen extends State<ListClothesScreen> {
       body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('Products').snapshots(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
+            
             if (!snapshot.hasData) {
               return const Center(child: Text('There is no product.'));
             }
@@ -45,7 +46,7 @@ class _ListClothesScreen extends State<ListClothesScreen> {
                                 urlPhotos:snapshot.data.docs[index].get('urlPhotos'), 
                                 price: snapshot.data.docs[index].get('price'), 
                                 denda: snapshot.data.docs[index].get('denda'), 
-                                description: snapshot.data.docs[index].get('description')
+                                description: snapshot.data.docs[index].get('description'),
                                 );
                                
                                Navigator.pushNamed(
@@ -60,16 +61,23 @@ class _ListClothesScreen extends State<ListClothesScreen> {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
-                                            image: DecorationImage(
+                                            image: DecorationImage(           
+                                              
                                                 image: NetworkImage(snapshot
                                                     .data.docs[index]
-                                                    .get('urlPhotos')),
+                                                    .get('urlPhotos'),
+                                                    
+
+                                                    
+                                                ),
+                                                
+                                                
                                                 fit: BoxFit.cover)))),
                                 const SizedBox(height: 8.0),
                                 Text(
                                   snapshot.data.docs[index].get('name'),
                                   textAlign: TextAlign.left,
-                                  style: const TextStyle(fontSize: 18.0),
+                                  style: const TextStyle(fontSize: 12.0),
                                 ),
                                 Text(
                                   snapshot.data.docs[index]
@@ -77,7 +85,7 @@ class _ListClothesScreen extends State<ListClothesScreen> {
                                       .toString(),
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(
-                                      fontSize: 15.0,
+                                      fontSize: 10.0,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 8.0),

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:renthub_app/commons/styles.dart';
 import 'package:renthub_app/data/model/product_model.dart';
 import 'package:renthub_app/screens/add_product_screen.dart';
+import 'package:renthub_app/screens/home_first_screen.dart';
 import 'package:renthub_app/screens/home_rent_screen.dart';
 import 'package:renthub_app/screens/home_cust_screen.dart';
 import 'package:renthub_app/screens/list_clothes_screen.dart';
 import 'package:renthub_app/screens/list_cust_order.dart';
 import 'package:renthub_app/screens/list_order_screen.dart';
+import 'package:renthub_app/screens/list_penalties_screen.dart';
 import 'package:renthub_app/screens/list_rent_screen.dart';
 import 'package:renthub_app/screens/list_return_screen.dart';
 import 'package:renthub_app/screens/login_screen.dart';
@@ -53,6 +55,8 @@ class MyApp extends StatelessWidget {
                   ModalRoute.of(context)?.settings.arguments as ProductModel,
             ),
         AddProductScreen.routeId: (context) => AddProductScreen(),
+        HomeFirstScreen.routeId: (context) => HomeFirstScreen(),
+        ListPenaltiesScreen.routeId: (context) => ListPenaltiesScreen()
       },
     );
   }

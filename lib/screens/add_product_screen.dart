@@ -207,6 +207,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       price: int.parse(_price.text),
                       denda: int.parse(_denda.text),
                       description: _description.text,
+                     
                     );
 
                     await _firebaseFirestore.collection("Products").add(

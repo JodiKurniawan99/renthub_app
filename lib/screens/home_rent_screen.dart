@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
+import 'package:renthub_app/screens/home_first_screen.dart';
+import 'package:renthub_app/screens/home_profile_screen.dart';
 import 'package:renthub_app/screens/list_cust_order.dart';
 import 'package:renthub_app/screens/list_order_screen.dart';
 import 'package:renthub_app/screens/list_rent_screen.dart';
@@ -23,6 +25,7 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    
       
       body: Container(
         child: Center(
@@ -58,209 +61,11 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
   _getScreen(int index) {
     switch (index) {
       case 0:
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Card(
-                child: InkWell(
-                  splashColor: Colors.blueAccent.withAlpha(20),
-                  onTap: () {
-                    Navigator.pushNamed(
-                        context, ListOrderScreen.routeId);
-                  },
-                  child: Center(
-                      child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text("Pesanan baru"),
-                      Text(
-                        "0",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  )),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // if you need this
-                  side: BorderSide(
-                    color: Colors.grey.withOpacity(0.2),
-                    width: 1,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Card(
-                child: InkWell(
-                  splashColor: Colors.blueAccent.withAlpha(20),
-                  onTap: () {
-                    Navigator.pushNamed(context, ListCustOrder.routeId);
-                  },
-                  child: Center(
-                      child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text("Barang yang sedang disewa"),
-                      Text(
-                        "0",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  )),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // if you need this
-                  side: BorderSide(
-                    color: Colors.grey.withOpacity(0.2),
-                    width: 1,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Card(
-                child: InkWell(
-                  splashColor: Colors.blueAccent.withAlpha(20),
-                  onTap: () {
-                     Navigator.pushNamed(context, ListReturnScreen.routeId);
-                  },
-                  child: Center(
-                      child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text("Barang yang dikembalikan"),
-                      Text(
-                        "0",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  )),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // if you need this
-                  side: BorderSide(
-                    color: Colors.grey.withOpacity(0.2),
-                    width: 1,
-                  ),
-                ),
-              ),
-            )          
-          ],
-        );
+        return HomeFirstScreen();
       case 1:
         return ListRentScreen();
       case 2:
-         return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Card(
-                child: InkWell(
-                  splashColor: Colors.blueAccent.withAlpha(20),
-                  onTap: () {
-                    Navigator.pushNamed(context, ListOrderScreen.routeId);
-                  },
-                  child: Center(
-                    child: Row(
-                    children: <Widget>[
-                      SizedBox(
-                        width: 30,
-                        height: 70,
-                      ),
-                      Icon(Icons.home),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Informasi toko"
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  )),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // if you need this
-                  side: BorderSide(
-                    color: Colors.grey.withOpacity(0.2),
-                    width: 1,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Card(
-                child: InkWell(
-                  splashColor: Colors.blueAccent.withAlpha(20),
-                  onTap: () {
-                    Navigator.pushNamed(context, ListOrderScreen.routeId);
-                  },
-                  child: Center(
-                      child: Row(
-                    children: <Widget>[
-                      SizedBox(
-                        width: 30,
-                        height: 70,
-                      ),
-                      Icon(Icons.settings),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text("Pengaturan"),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  )),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // if you need this
-                  side: BorderSide(
-                    color: Colors.grey.withOpacity(0.2),
-                    width: 1,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height:30),
-            MaterialButton(
-                child: Text('Logout'),
-                color: Theme.of(context).primaryColor,
-                textTheme: ButtonTextTheme.primary,
-                height: 40,
-                minWidth: 320,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                onPressed: () async {
-                  await _auth.signOut();
-                  Navigator.pushReplacementNamed(
-                      context, LoginScreen.routeId);
-                }),
-          ],
-        );
+        return HomeProfileScreen();
        
     }
   }
