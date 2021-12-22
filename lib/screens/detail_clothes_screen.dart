@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:renthub_app/data/model/cust_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:renthub_app/data/model/product_model.dart';
+import 'package:renthub_app/data/model/rent_model.dart';
+import 'package:renthub_app/screens/list_clothes_screen.dart';
 
 class DetailClothesScreen extends StatefulWidget {
   static const String routeId = 'detail_clothes_screen';
@@ -13,6 +18,24 @@ class DetailClothesScreen extends StatefulWidget {
 }
 
 class _DetailClothesScreen extends State<DetailClothesScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
+  CustModel _user = CustModel();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("Users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      _user = CustModel.fromMap(value.data());
+      setState(() {});
+    });
+  }
+
+  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+
   final _price = TextEditingController();
   final _denda = TextEditingController();
   final _dateRent = TextEditingController();
@@ -152,16 +175,54 @@ class _DetailClothesScreen extends State<DetailClothesScreen> {
                       child: SizedBox(
                         height: 40,
                         child: MaterialButton(
-                            child: const Text('Sewa'),
-                            color: Theme.of(context).primaryColor,
-                            textTheme: ButtonTextTheme.primary,
-                            height: 40,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            onPressed: () {}),
+                          child: const Text('Sewa'),
+                          color: Theme.of(context).primaryColor,
+                          textTheme: ButtonTextTheme.primary,
+                          height: 40,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          onPressed: () async {
+                            final day1 = DateTime.parse(_dateRent.text);
+                            final day2 = DateTime.parse(_dateReturn.text);
+                            final selisih = day2.difference(day1).inDays;
+                            final bayar = (selisih * widget.product.price);
+
+                            RentModel _rent = RentModel(
+                              product: widget.product.name,
+                              price: int.parse(_price.text),
+                              denda: int.parse(_denda.text),
+                              //Invalid date format
+                              dateRent: Timestamp.fromDate(
+                                  DateTime.parse(_dateRent.text)),
+                              dateReturn: Timestamp.fromDate(
+                                  DateTime.parse(_dateReturn.text)),
+                              day: selisih,
+                              total: bayar,
+                              status: 'Menunggu konfirmasi',
+                              //customer: _user.name,
+                              // emailCust: _user.email,
+                            );
+
+                            await _firebaseFirestore.collection("Rent").add(
+                              {
+                                'product': _rent.product,
+                                'price': _rent.price,
+                                'denda': _rent.denda,
+                                'dateRent': _rent.dateRent,
+                                'dateReturn': _rent.dateReturn,
+                                'day': _rent.day,
+                                'tota;': _rent.total,
+                                'status': _rent.status,
+                              },
+                            );
+
+                            Navigator.pushReplacementNamed(
+                                context, ListClothesScreen.routeId);
+                          },
+                        ),
                       ),
-                    ),
+                    )
                   ]),
             ),
           ),
@@ -169,7 +230,7 @@ class _DetailClothesScreen extends State<DetailClothesScreen> {
   }
 
   _selectDateRent(BuildContext context) async {
-    DateFormat formatter = DateFormat('dd/MM/yyyy');
+    DateFormat formatter = DateFormat('dd MMMM yyyy');
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
@@ -183,7 +244,7 @@ class _DetailClothesScreen extends State<DetailClothesScreen> {
   }
 
   _selectDateReturn(BuildContext context) async {
-    DateFormat formatter = DateFormat('dd/MM/yyyy');
+    DateFormat formatter = DateFormat('dd MMMM yyyy');
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
