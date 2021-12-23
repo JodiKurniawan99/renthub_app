@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:renthub_app/data/model/cust_model.dart';
 import 'package:renthub_app/screens/login_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,6 +22,10 @@ class _RegisterScreen extends State<RegisterScreen> {
 
   bool _hiddenText = true;
   bool _isLoading = false;
+
+  File? imageFile;
+  final imagePick = ImagePicker();
+  String? urlImage;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +54,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                 _isLoading
                     ? Center(child: CircularProgressIndicator())
                     : Container(),
-                SizedBox(height: 50.0),
+                const SizedBox(height: 20.0),
                 Text('RentHub',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -55,53 +62,130 @@ class _RegisterScreen extends State<RegisterScreen> {
                         fontSize: 57,
                         fontWeight: FontWeight.bold,
                         letterSpacing: -0.5)),
-                SizedBox(height: 5.0),
-                Text('Create an Account',
+                Text('Membuat sebuah Akun',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Theme.of(context).primaryColor,
-                        fontSize: 19,
+                        fontSize: 18,
                         letterSpacing: -0.5)),
-                SizedBox(height: 45.0),
+                const SizedBox(height: 40.0),
+                Center(
+                  child: Stack(
+                    children: <Widget>[
+                      CircleAvatar(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        radius: 80,
+                        child: ClipOval(
+                          child: imageFile == null
+                              ? Center(child: Icon(Icons.camera_alt))
+                              : Image.file(
+                                  imageFile!,
+                                  height: 150,
+                                  width: 150,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                      ),
+                      Positioned(
+                          bottom: 1,
+                          right: 1,
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            child: IconButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (BuildContext c) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(20.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30.0),
+                                                  child: Container(
+                                                    height: 60,
+                                                    width: 60,
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    child: IconButton(
+                                                      onPressed: () {
+                                                        pickFromGallery();
+                                                      },
+                                                      icon: Icon(Icons.camera),
+                                                      color: Colors.white,
+                                                    ),
+                                                  )),
+                                              const SizedBox(height: 10),
+                                              const Text("Galeri")
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              icon: Icon(Icons.add),
+                              color: Colors.black,
+                            ),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: Colors.black),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                          ))
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20.0),
                 TextField(
                   controller: _name,
                   autofocus: true,
                   textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.person),
                     hintText: 'Nama Lengkap',
                   ),
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 TextField(
                   controller: _email,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.alternate_email),
                     hintText: 'Email',
                   ),
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 TextField(
                   controller: _tlp,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.phone),
-                    hintText: 'Phone Number',
+                    hintText: 'Nomor Telepon',
                   ),
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 TextField(
                   controller: _password,
                   obscureText: _hiddenText,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     prefixIcon: Icon(Icons.lock),
                     suffixIcon: IconButton(
                       icon: Icon(_hiddenText
@@ -116,9 +200,10 @@ class _RegisterScreen extends State<RegisterScreen> {
                     hintText: 'Password',
                   ),
                 ),
+                const SizedBox(height: 8.0),
                 SizedBox(height: 20.0),
                 MaterialButton(
-                  child: Text('Sign Up'),
+                  child: Text('Register'),
                   color: Theme.of(context).primaryColor,
                   textTheme: ButtonTextTheme.primary,
                   height: 45,
@@ -140,11 +225,13 @@ class _RegisterScreen extends State<RegisterScreen> {
                               email: email, password: password);
 
                       CustModel _user = CustModel(
-                          name: name,
-                          email: email,
-                          userid: result.user!.uid,
-                          role: 'customer',
-                          tlp: tlp);
+                        name: name,
+                        email: email,
+                        userid: result.user!.uid,
+                        role: 'customer',
+                        tlp: tlp,
+                        urlPhotos: urlImage,
+                      );
 
                       await _firebaseFirestore
                           .collection("Users")
@@ -153,20 +240,28 @@ class _RegisterScreen extends State<RegisterScreen> {
                         'name': _user.name!.trim(),
                         'email': _user.email!.trim(),
                         'role': _user.role,
-                        'tlp': _user.tlp!.trim()
+                        'tlp': _user.tlp!.trim(),
+                        'urlPhotos': _user.urlPhotos,
                       });
 
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text('Sign up success!'),
+                            title: Text(
+                              'Regristrasi berhasil!',
+                            ),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8.0))),
                             actions: <Widget>[
-                              TextButton(
+                              MaterialButton(
                                 child: Text('Login'),
+                                color: Theme.of(context).primaryColor,
+                                textTheme: ButtonTextTheme.primary,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
                                 onPressed: () {
                                   Navigator.push(
                                       context,
@@ -183,13 +278,18 @@ class _RegisterScreen extends State<RegisterScreen> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text('Sign up failed!'),
+                            title: Text('Register gagal!'),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8.0))),
                             actions: <Widget>[
-                              TextButton(
-                                child: Text('Close'),
+                              MaterialButton(
+                                child: Text('Tutup'),
+                                color: Theme.of(context).primaryColor,
+                                textTheme: ButtonTextTheme.primary,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
@@ -209,7 +309,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('Already sign up? '),
+                    Text('Sudah punya akun? '),
                     GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -220,7 +320,9 @@ class _RegisterScreen extends State<RegisterScreen> {
                         child: Text(
                           'Login',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.blue),
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue),
                         ))
                   ],
                 ),
@@ -231,5 +333,28 @@ class _RegisterScreen extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  Future pickFromGallery() async {
+    final selectedImage =
+        await imagePick.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (selectedImage != null) {
+        imageFile = File(selectedImage.path);
+        uploadToStorage();
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Tidak ada file terpilih")));
+      }
+    });
+  }
+
+  Future uploadToStorage() async {
+    Reference refer = FirebaseStorage.instance
+        .ref()
+        .child("photos")
+        .child("photos_" + DateTime.now().millisecondsSinceEpoch.toString());
+    await refer.putFile(imageFile!);
+    urlImage = await refer.getDownloadURL();
   }
 }

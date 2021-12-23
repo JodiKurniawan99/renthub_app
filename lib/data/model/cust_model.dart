@@ -4,6 +4,7 @@ class CustModel {
   String? userid;
   String? role;
   String? tlp;
+  String? urlPhotos;
 
   CustModel({
     this.name,
@@ -11,6 +12,7 @@ class CustModel {
     this.userid,
     this.role,
     this.tlp,
+    this.urlPhotos,
   });
 
   //from server
@@ -21,6 +23,7 @@ class CustModel {
       userid: map['userid'],
       role: map['role'],
       tlp: map['tlp'],
+      urlPhotos: map['urlPhotos'],
     );
   }
 
@@ -32,6 +35,7 @@ class CustModel {
       'userid': userid,
       'role': role,
       'tlp': tlp,
+      'urlPhotos': urlPhotos,
     };
   }
 }

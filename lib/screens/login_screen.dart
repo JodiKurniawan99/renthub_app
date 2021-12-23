@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontWeight: FontWeight.bold,
                             letterSpacing: -0.5)),
                     SizedBox(height: 5.0),
-                    Text('Walcome back!',
+                    Text('Selamat Datang!',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Theme.of(context).primaryColor,
@@ -133,8 +133,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(8.0))),
                                 actions: <Widget>[
-                                  TextButton(
-                                    child: Text('Close'),
+                                  MaterialButton(
+                                    child: Text('Tutup'),
+                                    color: Theme.of(context).primaryColor,
+                                    textTheme: ButtonTextTheme.primary,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
@@ -154,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text("Don't have an account? "),
+                        Text("Tidak punya akun? "),
                         GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -163,9 +168,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                       builder: (context) => RegisterScreen()));
                             },
                             child: Text(
-                              'Sign up',
+                              'Register',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic,
                                   color: Colors.blue),
                             ))
                       ],
