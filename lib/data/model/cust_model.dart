@@ -26,16 +26,4 @@ class CustModel {
       urlPhotos: map['urlPhotos'],
     );
   }
-
-  //to server
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'email': email,
-      'userid': userid,
-      'role': role,
-      'tlp': tlp,
-      'urlPhotos': urlPhotos,
-    };
-  }
 }

@@ -102,7 +102,7 @@ class _DetailClothesScreen extends State<DetailClothesScreen> {
               Padding(
                 padding: EdgeInsets.only(top: 8.0, left: 16.0),
                 child: Text(
-                  "Rp. ${widget.product.price.toString()} /hari",
+                  "Rp. ${widget.product.price.toString()} / hari",
                   style: TextStyle(fontSize: 12.0),
                 ),
               ),
@@ -116,7 +116,7 @@ class _DetailClothesScreen extends State<DetailClothesScreen> {
               Padding(
                 padding: EdgeInsets.only(top: 8.0, left: 16.0),
                 child: Text(
-                  "Rp. ${widget.product.denda.toString()} /hari",
+                  "Rp. ${widget.product.denda.toString()} / hari",
                   style: TextStyle(fontSize: 12.0),
                 ),
               ),

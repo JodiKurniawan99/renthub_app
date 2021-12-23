@@ -21,7 +21,7 @@ class _ProfileCustScreen extends State<ProfileCustScreen> {
         .doc(user!.uid)
         .get()
         .then((value) {
-      this._user = CustModel.fromMap(value.data());
+      _user = CustModel.fromMap(value.data());
       setState(() {});
     });
   }
@@ -31,6 +31,20 @@ class _ProfileCustScreen extends State<ProfileCustScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          toolbarHeight: 70,
+          title: Text("Informasi Akun"),
+          centerTitle: true,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20)),
+                color: Theme.of(context).primaryColor),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Center(
             child: Padding(
@@ -42,28 +56,35 @@ class _ProfileCustScreen extends State<ProfileCustScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                     child: Stack(
-                      children: const <Widget>[
+                      children: <Widget>[
                         CircleAvatar(
-                          radius: 80,
-                          backgroundImage: NetworkImage(
-                              "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"),
+                          backgroundColor: Theme.of(context).primaryColor,
+                          radius: 85.0,
+                          child: CircleAvatar(
+                            radius: 80,
+                            backgroundImage: NetworkImage(_user.urlPhotos ??
+                                'https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg'),
+
+                            /// Photo by @studiogstock via Freepik
+                          ),
                         ),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 35),
+                    padding: EdgeInsets.only(bottom: 10.0),
                     child: Text(
                       "${_user.email}",
                       style: TextStyle(fontSize: 25.0),
                     ),
                   ),
+                  Divider(color: Colors.black),
                   Padding(
-                    padding: EdgeInsets.only(top: 10.0),
+                    padding: EdgeInsets.only(top: 20.0),
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Name',
+                        'Nama',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.blue),
                       ),
@@ -83,18 +104,18 @@ class _ProfileCustScreen extends State<ProfileCustScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 10.0),
+                    padding: EdgeInsets.only(top: 20.0),
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Phone Number',
+                        'Nomor Telepon',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.blue),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 10.0),
+                    padding: EdgeInsets.only(bottom: 35.0),
                     child: SizedBox(
                       height: 30,
                       child: Align(
@@ -106,7 +127,6 @@ class _ProfileCustScreen extends State<ProfileCustScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10.0),
                   Padding(
                     padding: EdgeInsets.only(bottom: 10.0),
                     child: SizedBox(

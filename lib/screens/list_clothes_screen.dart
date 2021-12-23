@@ -15,9 +15,18 @@ class _ListClothesScreen extends State<ListClothesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        toolbarHeight: 70,
         title: Text("RentHub"),
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20)),
+              color: Theme.of(context).primaryColor),
+        ),
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('Products').snapshots(),
