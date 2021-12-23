@@ -140,6 +140,7 @@ class _ProfileCustScreen extends State<ProfileCustScreen> {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           onPressed: () {
+                            FirebaseAuth.instance.signOut();
                             Navigator.pushReplacementNamed(
                                 context, LoginScreen.routeId);
                           }),

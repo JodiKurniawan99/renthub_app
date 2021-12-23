@@ -25,7 +25,5 @@ class RentModel {
     required this.customer,
     required this.emailCust,
     required this.urlPhotos,
-
-
   });
 }
