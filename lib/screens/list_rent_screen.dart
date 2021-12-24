@@ -45,7 +45,8 @@ class ListRentScreen extends StatelessWidget{
                                         ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(8.0),
-                                          child: Image.network(
+                                          child:
+                                           Image.network(
                                             document['urlPhotos'],
                                             width: 80,
                                             height: 80,

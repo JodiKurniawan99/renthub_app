@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:renthub_app/screens/home_cust_screen.dart';
 import 'package:renthub_app/screens/home_rent_screen.dart';
 import 'package:renthub_app/screens/register_screen.dart';
@@ -36,32 +37,38 @@ class _LoginScreenState extends State<LoginScreen> {
                     _isLoading
                         ? Center(child: CircularProgressIndicator())
                         : Container(),
-                    SizedBox(height: 150.0),
-                    Text('RentHub',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 57,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: -0.5)),
-                    SizedBox(height: 5.0),
-                    Text('Selamat Datang!',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 19,
-                            letterSpacing: -0.5)),
-                    SizedBox(height: 45.0),
+                    SizedBox(height: 200.0),
+                    Text('Selamat datang kembali!',
+                        textAlign: TextAlign.left,
+                        style: Theme.of(context).textTheme.headline6,
+                        
+                    ),
+                    SizedBox(height: 10.0),
+                    Text('Login ke akun anda',
+                        textAlign: TextAlign.left,
+                        style: Theme.of(context).textTheme.bodyText1
+                    ),
+                    SizedBox(height: 33.0),
                     TextField(
                       controller: _email,
                       autofocus: true,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
+                      cursorColor: Colors.black,
                       decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(4)),
+                          borderSide: BorderSide(width: 2, color: Colors.black),
+                        ),
+                        focusColor: Color(0xFFf2f2f2),
                         border: OutlineInputBorder(),
-                        prefixIcon: Icon(Icons.alternate_email),
+                        prefixIcon: Icon(Icons.alternate_email, color: Colors.black),
                         hintText: 'Email',
+                        filled: true,
+                        
+                        
                       ),
+                      
                     ),
                     SizedBox(height: 8.0),
                     TextField(
@@ -69,12 +76,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: _hiddenText,
                       textInputAction: TextInputAction.done,
                       decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(4)),
+                          borderSide: BorderSide(width: 2, color: Colors.black),
+                        ),
+                        focusColor: Color(0xFFf2f2f2),
+                        filled: true,
                         border: OutlineInputBorder(),
-                        prefixIcon: Icon(Icons.lock),
+                        prefixIcon: Icon(Icons.lock, color: Colors.black),
                         suffixIcon: IconButton(
                           icon: Icon(_hiddenText
                               ? Icons.visibility
-                              : Icons.visibility_off),
+                              : Icons.visibility_off, color: Colors.black,),
                           onPressed: () {
                             setState(() {
                               _hiddenText = !_hiddenText;
@@ -84,14 +97,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintText: 'Password',
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 33.0),
                     MaterialButton(
-                      child: Text('Login'),
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 16,
+                          
+                        ),
+                        ),
                       color: Theme.of(context).primaryColor,
                       textTheme: ButtonTextTheme.primary,
                       height: 45,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       onPressed: () async {
                         setState(() {
@@ -155,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       },
                     ),
-                    SizedBox(height: 8.0),
+                    SizedBox(height: 33.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -171,8 +190,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               'Register',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic,
-                                  color: Colors.blue),
+                                 
+                                  ),
                             ))
                       ],
                     ),

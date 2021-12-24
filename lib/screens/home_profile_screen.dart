@@ -81,7 +81,7 @@ class HomeProfileScreen extends StatelessWidget {
                 onTap: () {
                   
                      FirebaseAuth.instance.signOut();
-                     Navigator.pushNamed(context, LoginScreen.routeId);
+                     Navigator.pushReplacementNamed(context, LoginScreen.routeId);
                   
                 },
                 child: Center(

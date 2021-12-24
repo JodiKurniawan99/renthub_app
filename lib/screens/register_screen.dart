@@ -41,7 +41,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                 Navigator.pop(context);
               },
               icon: Icon(
-                Icons.arrow_back_ios,
+                Icons.arrow_back,
                 color: Theme.of(context).primaryColor,
               )),
         ),
@@ -54,143 +54,172 @@ class _RegisterScreen extends State<RegisterScreen> {
                 _isLoading
                     ? Center(child: CircularProgressIndicator())
                     : Container(),
-                const SizedBox(height: 20.0),
-                Text('RentHub',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 57,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: -0.5)),
-                Text('Membuat sebuah Akun',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 18,
-                        letterSpacing: -0.5)),
-                const SizedBox(height: 40.0),
-                Center(
-                  child: Stack(
-                    children: <Widget>[
-                      CircleAvatar(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        radius: 80,
-                        child: ClipOval(
-                          child: imageFile == null
-                              ? Center(child: Icon(Icons.camera_alt))
-                              : Image.file(
-                                  imageFile!,
-                                  height: 150,
-                                  width: 150,
-                                  fit: BoxFit.cover,
-                                ),
-                        ),
-                      ),
-                      Positioned(
-                          bottom: 1,
-                          right: 1,
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            child: IconButton(
-                              onPressed: () {
-                                showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (BuildContext c) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30.0),
-                                                  child: Container(
-                                                    height: 60,
-                                                    width: 60,
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    child: IconButton(
-                                                      onPressed: () {
-                                                        pickFromGallery();
-                                                      },
-                                                      icon: Icon(Icons.camera),
-                                                      color: Colors.white,
-                                                    ),
-                                                  )),
-                                              const SizedBox(height: 10),
-                                              const Text("Galeri")
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              icon: Icon(Icons.add),
-                              color: Colors.black,
-                            ),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(color: Colors.black),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
-                          ))
-                    ],
-                  ),
+                const SizedBox(height: 16.0),
+                Text(
+                  'Daftar akun baru',
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.headline6,
                 ),
-                const SizedBox(height: 20.0),
+                SizedBox(height: 8.0),
+                Text('Buat sebuah akun baru',
+                    textAlign: TextAlign.left,
+                    style: Theme.of(context).textTheme.bodyText1),
+                const SizedBox(height: 30.0),
+                // Center(
+                //   child:
+                //       CircleAvatar(
+                //         backgroundColor: Theme.of(context).primaryColor,
+                //         radius: 40,
+                //         child: ClipOval(
+                //           child: imageFile == null
+                //               ? Center(child: IconButton(
+                //                 onPressed: (){pickFromGallery();},
+                //                 icon: Icon(Icons.add_a_photo,size: 25),
+                                
+                //                 color: Colors.white,))
+                //               : Image.file(
+                //                   imageFile!,
+                //                   height: 150,
+                //                   width: 150,
+                //                   fit: BoxFit.cover,
+                //                 ),
+                //         ),
+                //       ),
+                      // Positioned(
+                      //     bottom: 1,
+                      //     right: 1,
+                      //     child: Container(
+                      //       height: 40,
+                      //       width: 40,
+                      //       child: IconButton(
+                      //         onPressed: () {
+                      //           showModalBottomSheet(
+                      //             isScrollControlled: true,
+                      //             context: context,
+                      //             builder: (BuildContext c) {
+                      //               return Padding(
+                      //                 padding: const EdgeInsets.all(20.0),
+                      //                 child: Row(
+                      //                   mainAxisAlignment:
+                      //                       MainAxisAlignment.center,
+                      //                   children: [
+                      //                     Column(
+                      //                       mainAxisSize: MainAxisSize.min,
+                      //                       children: [
+                      //                         ClipRRect(
+                      //                             borderRadius:
+                      //                                 BorderRadius.circular(
+                      //                                     30.0),
+                      //                             child: Container(
+                      //                               height: 60,
+                      //                               width: 60,
+                      //                               color: Theme.of(context)
+                      //                                   .primaryColor,
+                      //                               child: IconButton(
+                      //                                 onPressed: () {
+                      //                                   pickFromGallery();
+                      //                                 },
+                      //                                 icon: Icon(Icons.camera),
+                      //                                 color: Colors.white,
+                      //                               ),
+                      //                             )),
+                      //                         const SizedBox(height: 10),
+                      //                         const Text("Galeri")
+                      //                       ],
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               );
+                      //             },
+                      //           );
+                      //         },
+                      //         icon: Icon(Icons.add),
+                      //         color: Colors.black,
+                      //       ),
+                      //       decoration: BoxDecoration(
+                      //           color: Colors.white,
+                      //           border: Border.all(color: Colors.black),
+                      //           borderRadius:
+                      //               BorderRadius.all(Radius.circular(20))),
+                      //     ))
+                    
+                
+                const SizedBox(height: 30.0),
                 TextField(
                   controller: _name,
                   autofocus: true,
+                  
                   textInputAction: TextInputAction.next,
+                  cursorColor: Colors.black,
                   decoration: const InputDecoration(
+                    
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      borderSide: BorderSide(width: 2, color: Colors.black),
+                    ),
+                    
+                    focusColor: Color(0xFFf2f2f2),
+                    filled: true,
                     border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.person),
+                    prefixIcon: Icon(Icons.person, color: Colors.black),
                     hintText: 'Nama Lengkap',
                   ),
                 ),
                 const SizedBox(height: 8.0),
                 TextField(
                   controller: _email,
+                  cursorColor: Colors.black,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      borderSide: BorderSide(width: 2, color: Colors.black),
+                    ),
+                    focusColor: Color(0xFFf2f2f2),
+                    filled: true,
                     border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.alternate_email),
+                    prefixIcon: Icon(Icons.alternate_email, color: Colors.black),
                     hintText: 'Email',
                   ),
                 ),
                 const SizedBox(height: 8.0),
                 TextField(
                   controller: _tlp,
+                  cursorColor: Colors.black,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      borderSide: BorderSide(width: 2, color: Colors.black),
+                    ),
+                    focusColor: Color(0xFFf2f2f2),
+                    filled: true,
                     border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.phone),
+                    prefixIcon: Icon(Icons.phone, color: Colors.black),
                     hintText: 'Nomor Telepon',
                   ),
                 ),
                 const SizedBox(height: 8.0),
                 TextField(
                   controller: _password,
+                  cursorColor: Colors.black,
                   obscureText: _hiddenText,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      borderSide: BorderSide(width: 2, color: Colors.black),
+                    ),
+                    focusColor: Color(0xFFf2f2f2),
+                    filled: true,
                     border: const OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: Icon(Icons.lock, color: Colors.black),
                     suffixIcon: IconButton(
                       icon: Icon(_hiddenText
                           ? Icons.visibility
-                          : Icons.visibility_off),
+                          : Icons.visibility_off, color: Colors.black),
                       onPressed: () {
                         setState(() {
                           _hiddenText = !_hiddenText;
@@ -208,7 +237,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                   textTheme: ButtonTextTheme.primary,
                   height: 45,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   onPressed: () async {
                     setState(() {
@@ -263,10 +292,9 @@ class _RegisterScreen extends State<RegisterScreen> {
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                                 onPressed: () {
-                                  Navigator.push(
+                                  Navigator.pop(
                                       context,
-                                      MaterialPageRoute(
-                                          builder: (context) => LoginScreen()));
+                                      );
                                 },
                               ),
                             ],
@@ -312,17 +340,16 @@ class _RegisterScreen extends State<RegisterScreen> {
                     Text('Sudah punya akun? '),
                     GestureDetector(
                         onTap: () {
-                          Navigator.push(
+                          Navigator.pop(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
+                              );
                         },
                         child: Text(
                           'Login',
                           style: TextStyle(
-                              fontStyle: FontStyle.italic,
+                              
                               fontWeight: FontWeight.bold,
-                              color: Colors.blue),
+                              ),
                         ))
                   ],
                 ),

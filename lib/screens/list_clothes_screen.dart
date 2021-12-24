@@ -17,14 +17,14 @@ class _ListClothesScreen extends State<ListClothesScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        toolbarHeight: 70,
+        toolbarHeight: 60,
         title: Text("RentHub"),
         centerTitle: true,
         flexibleSpace: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
+                  bottomLeft: Radius.circular(22),
+                  bottomRight: Radius.circular(22)),
               color: Theme.of(context).primaryColor),
         ),
       ),

@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         textTheme: myTextTheme,
         appBarTheme: AppBarTheme(backgroundColor: Colors.black),
+        
       ),
       initialRoute: 
       
