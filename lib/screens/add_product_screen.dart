@@ -186,8 +186,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         'description': _product.description
                       },
                     );
-                    Navigator.pushReplacementNamed(
-                        context, ListRentScreen.routeId);
+                    Navigator.pop(context);     
                   },
                 ),
                 const SizedBox(height: 50),
