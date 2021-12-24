@@ -43,6 +43,7 @@ class _ListRentCustScreen extends State<ListRentCustScreen> {
                     bottomRight: Radius.circular(22)),
                 color: Theme.of(context).primaryColor),
           ),
+          automaticallyImplyLeading: false,
         ),
         body: StreamBuilder(
           stream: FirebaseFirestore.instance
@@ -77,6 +78,31 @@ class _ListRentCustScreen extends State<ListRentCustScreen> {
                                             width: 70,
                                             height: 70,
                                             fit: BoxFit.cover,
+                                            errorBuilder: (BuildContext context,
+                                                Object exception,
+                                                StackTrace? stackTrace) {
+                                              return Center(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: const [
+                                                    Icon(
+                                                      Icons.hide_image,
+                                                      size: 80,
+                                                    ),
+                                                    Text(
+                                                      'Could not load image.',
+                                                      style: TextStyle(
+                                                          fontSize: 5,
+                                                          fontStyle:
+                                                              FontStyle.italic),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
                                           ),
                                         ),
                                       ),

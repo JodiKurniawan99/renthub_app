@@ -27,6 +27,7 @@ class _ListClothesScreen extends State<ListClothesScreen> {
                   bottomRight: Radius.circular(22)),
               color: Theme.of(context).primaryColor),
         ),
+        automaticallyImplyLeading: false,
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('Products').snapshots(),
@@ -70,16 +71,37 @@ class _ListClothesScreen extends State<ListClothesScreen> {
                             child: Column(
                               children: <Widget>[
                                 Expanded(
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                  snapshot.data.docs[index]
-                                                      .get('urlPhotos'),
-                                                ),
-                                                fit: BoxFit.cover)))),
+                                    child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Image.network(
+                                    snapshot.data.docs[index].get('urlPhotos'),
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (BuildContext context,
+                                        Object exception,
+                                        StackTrace? stackTrace) {
+                                      return Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: const [
+                                            Icon(
+                                              Icons.hide_image,
+                                              size: 100,
+                                            ),
+                                            Text(
+                                              'Could not load image.',
+                                              style: TextStyle(
+                                                  fontSize: 10,
+                                                  fontStyle: FontStyle.italic),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                )),
                                 const SizedBox(height: 8.0),
                                 Text(
                                   snapshot.data.docs[index].get('name'),

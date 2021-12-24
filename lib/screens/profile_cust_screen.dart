@@ -44,6 +44,7 @@ class _ProfileCustScreen extends State<ProfileCustScreen> {
                     bottomRight: Radius.circular(22)),
                 color: Theme.of(context).primaryColor),
           ),
+          automaticallyImplyLeading: false,
         ),
         body: SingleChildScrollView(
           child: Center(
@@ -53,9 +54,8 @@ class _ProfileCustScreen extends State<ProfileCustScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(
-                    children:<Widget>[
-                       Padding(
+                  Row(children: <Widget>[
+                    Padding(
                       padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                       child: Stack(
                         children: <Widget>[
@@ -73,77 +73,74 @@ class _ProfileCustScreen extends State<ProfileCustScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(width: 20,),
-                     Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          "${_user.name}",
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 10.0),
-                        child: SizedBox(
-                          height: 30,
-                          child: Align(
-                            alignment: Alignment.center,
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(top: 10.0),
                             child: Text(
-                              '${_user.email}',
-                              style: Theme.of(context).textTheme.bodyText1,
+                              "${_user.name}",
+                              style: Theme.of(context).textTheme.headline6,
                             ),
                           ),
-                        ),
-                      ),
-                    ]),
-
-                    ]
-                  ),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 10.0),
+                            child: SizedBox(
+                              height: 30,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  '${_user.email}',
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ]),
+                  ]),
                   Padding(
                     padding: EdgeInsets.only(top: 20.0),
-                   
-                      child: Text(
-                        'Kontak',
-                        style:
-                            Theme.of(context).textTheme.headline6,
-                      ), 
+                    child: Text(
+                      'Kontak',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 35.0),
-                    
-                      
-                        child: Text(
-                          '${_user.tlp}',
-                          style:Theme.of(context).textTheme.bodyText2,
-                        ),
-                      
-                  
+                    child: Text(
+                      '${_user.tlp}',
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
                   ),
-                  Container(color: Color(0xFFf2f2f2), height: 15, ),
+                  Container(
+                    color: Color(0xFFf2f2f2),
+                    height: 15,
+                  ),
                   SizedBox(height: 20),
-                  MaterialButton(
-                      child: Text(
-                        'Logout',
-                        style: TextStyle(
-                          fontSize: 16,
-                          
+                  ButtonTheme(
+                    minWidth: double.infinity,
+                    child: MaterialButton(
+                        child: Text(
+                          'Logout',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
                         ),
+                        color: Theme.of(context).primaryColor,
+                        textTheme: ButtonTextTheme.primary,
+                        height: 45,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                      color: Theme.of(context).primaryColor,
-                      textTheme: ButtonTextTheme.primary,
-                      height: 45,
-                      minWidth: 350,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      onPressed: (){
-                      FirebaseAuth.instance.signOut();
-                      Navigator.pushReplacementNamed(context, LoginScreen.routeId);
-                      }
+                        onPressed: () {
+                          FirebaseAuth.instance.signOut();
+                          Navigator.pushReplacementNamed(
+                              context, LoginScreen.routeId);
+                        }),
                   ),
-                  
                 ],
               ),
             ),

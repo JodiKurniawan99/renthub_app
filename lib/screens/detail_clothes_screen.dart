@@ -61,6 +61,26 @@ class _DetailClothesScreen extends State<DetailClothesScreen> {
                   child: Image.network(
                     widget.product.urlPhotos!,
                     fit: BoxFit.fill,
+                    errorBuilder: (BuildContext context, Object exception,
+                        StackTrace? stackTrace) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.hide_image,
+                              size: 400,
+                            ),
+                            Text(
+                              'Could not load image.',
+                              style: TextStyle(
+                                  fontSize: 15, fontStyle: FontStyle.italic),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ),
                 SafeArea(
