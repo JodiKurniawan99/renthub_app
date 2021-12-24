@@ -8,7 +8,6 @@ import 'package:renthub_app/screens/home_profile_screen.dart';
 import 'package:renthub_app/screens/list_cust_order.dart';
 import 'package:renthub_app/screens/list_order_screen.dart';
 import 'package:renthub_app/screens/list_rent_screen.dart';
-import 'package:renthub_app/screens/list_return_screen.dart';
 import 'package:renthub_app/screens/login_screen.dart';
 
 class HomeRentScreen extends StatefulWidget{
@@ -65,8 +64,7 @@ class _HomeRentScreenState extends State<HomeRentScreen>{
       case 1:
         return ListRentScreen();
       case 2:
-        return HomeProfileScreen();
-       
+        return HomeProfileScreen();  
     }
   }
 

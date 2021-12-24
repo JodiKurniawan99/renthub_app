@@ -15,9 +15,7 @@ class UpdateProductScreen extends StatelessWidget {
   TextEditingController _name = new TextEditingController();
   TextEditingController _stock = new TextEditingController();
   CollectionReference _products = FirebaseFirestore.instance.collection('Products');
-
-
-                         
+                      
   @override
   Widget build(BuildContext context) {
 
@@ -99,8 +97,6 @@ class UpdateProductScreen extends StatelessWidget {
           ]
         )
       )
-     
-
     );
   }
 }

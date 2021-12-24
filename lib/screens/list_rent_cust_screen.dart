@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -73,36 +74,19 @@ class _ListRentCustScreen extends State<ListRentCustScreen> {
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(8.0),
-                                          child: Image.network(
-                                            document['urlPhotos'],
-                                            width: 70,
+                                          child: CachedNetworkImage(
                                             height: 70,
+                                            width: 70,
                                             fit: BoxFit.cover,
-                                            errorBuilder: (BuildContext context,
-                                                Object exception,
-                                                StackTrace? stackTrace) {
-                                              return Center(
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: const [
-                                                    Icon(
-                                                      Icons.hide_image,
-                                                      size: 80,
-                                                    ),
-                                                    Text(
-                                                      'Could not load image.',
-                                                      style: TextStyle(
-                                                          fontSize: 5,
-                                                          fontStyle:
-                                                              FontStyle.italic),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
+                                            imageUrl: document['urlPhotos'],
+                                            progressIndicatorBuilder: (context,
+                                                    url, downloadProgress) =>
+                                                CircularProgressIndicator(
+                                                    value: downloadProgress
+                                                        .progress),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Icon(Icons.hide_image),
                                           ),
                                         ),
                                       ),
@@ -157,8 +141,13 @@ class _ListRentCustScreen extends State<ListRentCustScreen> {
                                         right: 10.0, bottom: 5.0),
                                     child: Align(
                                       alignment: Alignment.centerRight,
-                                      child: Text('Status : ' +
-                                          document['status'].toString()),
+                                      child: document['status'].toString() == 'penalty'?
+                                      Text('Status : Terlambat' ,
+                                        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)):
+                                      Text('Status : ' + document['status'].toString(),
+                                                style: TextStyle(
+                                                color: Colors.green, 
+                                                fontWeight: FontWeight.bold))
                                     ))
                               ])));
                     }).toList(),

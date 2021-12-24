@@ -16,12 +16,12 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  TextEditingController _name = new TextEditingController();
-  TextEditingController _stock = new TextEditingController();
-  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-  TextEditingController _price = new TextEditingController();
-  TextEditingController _denda = new TextEditingController();
-  TextEditingController _description = new TextEditingController();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _stock = TextEditingController();
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  final TextEditingController _price = TextEditingController();
+  final TextEditingController _denda = TextEditingController();
+  final TextEditingController _description = TextEditingController();
 
   File? imageFile;
   final imagePick = ImagePicker();
@@ -77,41 +77,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           borderRadius: BorderRadius.circular(16),
                         ),
                         onPressed: () {
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (BuildContext c) {
-                              return Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
-                                            child: Container(
-                                              height: 60,
-                                              width: 60,
-                                              color: Colors.lightBlueAccent,
-                                              child: IconButton(
-                                                  onPressed: () {
-                                                    pickFromGallery();
-                                                  },
-                                                  icon:
-                                                      const Icon(Icons.camera)),
-                                            )),
-                                        const SizedBox(height: 10),
-                                        const Text("Gallery")
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
+                           pickFromGallery();
                         },
                       ),
                     ),

@@ -64,87 +64,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                 Text('Buat sebuah akun baru',
                     textAlign: TextAlign.left,
                     style: Theme.of(context).textTheme.bodyText1),
-                const SizedBox(height: 30.0),
-                // Center(
-                //   child:
-                //       CircleAvatar(
-                //         backgroundColor: Theme.of(context).primaryColor,
-                //         radius: 40,
-                //         child: ClipOval(
-                //           child: imageFile == null
-                //               ? Center(child: IconButton(
-                //                 onPressed: (){pickFromGallery();},
-                //                 icon: Icon(Icons.add_a_photo,size: 25),
-                                
-                //                 color: Colors.white,))
-                //               : Image.file(
-                //                   imageFile!,
-                //                   height: 150,
-                //                   width: 150,
-                //                   fit: BoxFit.cover,
-                //                 ),
-                //         ),
-                //       ),
-                      // Positioned(
-                      //     bottom: 1,
-                      //     right: 1,
-                      //     child: Container(
-                      //       height: 40,
-                      //       width: 40,
-                      //       child: IconButton(
-                      //         onPressed: () {
-                      //           showModalBottomSheet(
-                      //             isScrollControlled: true,
-                      //             context: context,
-                      //             builder: (BuildContext c) {
-                      //               return Padding(
-                      //                 padding: const EdgeInsets.all(20.0),
-                      //                 child: Row(
-                      //                   mainAxisAlignment:
-                      //                       MainAxisAlignment.center,
-                      //                   children: [
-                      //                     Column(
-                      //                       mainAxisSize: MainAxisSize.min,
-                      //                       children: [
-                      //                         ClipRRect(
-                      //                             borderRadius:
-                      //                                 BorderRadius.circular(
-                      //                                     30.0),
-                      //                             child: Container(
-                      //                               height: 60,
-                      //                               width: 60,
-                      //                               color: Theme.of(context)
-                      //                                   .primaryColor,
-                      //                               child: IconButton(
-                      //                                 onPressed: () {
-                      //                                   pickFromGallery();
-                      //                                 },
-                      //                                 icon: Icon(Icons.camera),
-                      //                                 color: Colors.white,
-                      //                               ),
-                      //                             )),
-                      //                         const SizedBox(height: 10),
-                      //                         const Text("Galeri")
-                      //                       ],
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //               );
-                      //             },
-                      //           );
-                      //         },
-                      //         icon: Icon(Icons.add),
-                      //         color: Colors.black,
-                      //       ),
-                      //       decoration: BoxDecoration(
-                      //           color: Colors.white,
-                      //           border: Border.all(color: Colors.black),
-                      //           borderRadius:
-                      //               BorderRadius.all(Radius.circular(20))),
-                      //     ))
-                    
-                
-                const SizedBox(height: 30.0),
+                const SizedBox(height: 60.0),
                 TextField(
                   controller: _name,
                   autofocus: true,
@@ -152,12 +72,10 @@ class _RegisterScreen extends State<RegisterScreen> {
                   textInputAction: TextInputAction.next,
                   cursorColor: Colors.black,
                   decoration: const InputDecoration(
-                    
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(4)),
                       borderSide: BorderSide(width: 2, color: Colors.black),
                     ),
-                    
                     focusColor: Color(0xFFf2f2f2),
                     filled: true,
                     border: OutlineInputBorder(),

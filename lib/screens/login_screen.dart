@@ -123,7 +123,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           UserCredential result =
                               await _auth.signInWithEmailAndPassword(
                                   email: email, password: password);
-
                           String uid = result.user!.uid;
 
                           var userDoc =

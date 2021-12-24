@@ -13,13 +13,9 @@ class HomeFirstScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             SizedBox(height: 20,),
-           
-            
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 16.0),
-              
                 child: InkWell(
-                  
                   onTap: () {
                     Navigator.pushNamed(
                         context, ListOrderScreen.routeId);
@@ -43,25 +39,20 @@ class HomeFirstScreen extends StatelessWidget {
                       ],
                     ),
                     Icon(Icons.navigate_next_rounded)
-
-                      ],
-                    )
-                      
-                ),
-               
+                    ],
+                    )     
+                ), 
               ),
-           
-                        ),
-                        SizedBox(height:20),
-                        Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: InkWell(
-               
+              ),
+              SizedBox(height:16),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: InkWell(
                 onTap: () {
                   Navigator.pushNamed(context, ListCustOrder.routeId);
                 },
                 child: Center(
-                    child: Row(
+                  child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Row(
@@ -108,11 +99,9 @@ class HomeFirstScreen extends StatelessWidget {
                   ],
                 )),
               ),
-            ),
-          
-                   
+            ),    
           ],
         )
-                );
+     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -37,17 +38,24 @@ class ListOrderScreen extends StatelessWidget {
                                           child:  ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(8.0),
-                                          child: Image.network(
-                                            document['urlPhotos'],
-                                            width: 70,
-                                            height: 70,
-                                            fit: BoxFit.cover,
-                                          ),
+                                          child: CachedNetworkImage(
+                                              height: 70,
+                                              width: 70,
+                                              fit: BoxFit.cover,
+                                              imageUrl: document['urlPhotos'],
+                                              progressIndicatorBuilder:
+                                                  (context, url,
+                                                          downloadProgress) =>
+                                                      CircularProgressIndicator(
+                                                          value:
+                                                              downloadProgress
+                                                                  .progress),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Icon(Icons.hide_image),
+                                            ),
                                         ),
                                         ),
-                                        
-                                       
-
                                         SizedBox(width: 10),
                                         Column(
                                             crossAxisAlignment:
@@ -56,7 +64,6 @@ class ListOrderScreen extends StatelessWidget {
                                               SizedBox(height: 8,),
                                               Text(
                                                 document['product'],
-                                                
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                     fontWeight:
@@ -84,20 +91,6 @@ class ListOrderScreen extends StatelessWidget {
                                           width: 30,
                                         ),
                                       ]),
-                                      // IconButton(
-                                      //     onPressed: () async {
-                                      //       FirebaseFirestore.instance
-                                      //           .collection('Products')
-                                      //           .doc(document.id)
-                                      //           .delete();
-                                      //       Reference refer = FirebaseStorage
-                                      //           .instance
-                                      //           .refFromURL(
-                                      //               document['urlPhotos']);
-                                      //       await refer.delete();
-                                      //     },
-                                      //     icon: Icon(Icons.delete,
-                                      //         color: Colors.redAccent))
                                     ],
                                   ),
                                   SizedBox(height:10),
@@ -105,14 +98,12 @@ class ListOrderScreen extends StatelessWidget {
                                     padding: EdgeInsets.symmetric(horizontal: 8.0),
                                     child: Divider(color: Colors.grey),
                                   ),
-                                  
                                   Row(
                                     mainAxisAlignment:MainAxisAlignment.center,
                                     children: <Widget>[
                                     MaterialButton(
                                         child: Text(
-                                          'Terima',
-                                          
+                                          'Terima', 
                                         ),
                                         color: Colors.green,
                                         textTheme: ButtonTextTheme.primary,
@@ -130,7 +121,6 @@ class ListOrderScreen extends StatelessWidget {
 
                                                 "status": "accepted"
                                               });
-
                                         }),
                                     SizedBox(
                                       width: 10,
@@ -152,9 +142,7 @@ class ListOrderScreen extends StatelessWidget {
                                                   .doc(document.id)
                                                   .delete();
                                         }),
-                                  ])
-
-                                      
+                                  ]) 
                                     ],
                                   )
                                 )
@@ -167,51 +155,3 @@ class ListOrderScreen extends StatelessWidget {
     );
   }
 }
-
-// Widget _buildListItem(BuildContext context, int index) {
-//   return ListTile(
-//     contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-    
-//     leading: ClipRRect(
-//       borderRadius: BorderRadius.circular(8.0),
-//       child: Image.network(
-//         "https://cf.shopee.co.id/file/206c055c74c174b02717ef73f791fb3c",
-//         width: 80,
-//         fit: BoxFit.cover,
-//       ),
-//     ),
-//     title: Padding(
-//       padding:EdgeInsets.only(top: 10) ,
-//       child:Text(arr[index]) ,),
-     
-//     subtitle: Row(
-//       children: <Widget>[
-//         MaterialButton(
-//             child: Text('Terima'),
-//             color: Colors.greenAccent,
-//             textTheme: ButtonTextTheme.primary,
-//             height: 25,
-//             shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(8),
-//             ),
-//             onPressed: () {
-              
-//             }),
-//             SizedBox(width: 10,),
-
-//             MaterialButton(
-//             child: Text('Tolak'),
-//             color: Colors.redAccent,
-//             textTheme: ButtonTextTheme.primary,
-//             height: 26,
-//             shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(8),
-//             ),
-//             onPressed: () {
-              
-//             }),
-//       ]
-//     )
-    
-//   );
-// }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:renthub_app/data/model/cust_model.dart';
@@ -56,32 +57,14 @@ class _DetailClothesScreen extends State<DetailClothesScreen> {
               Stack(children: <Widget>[
                 ClipRRect(
                   borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(36.0),
-                      bottomRight: Radius.circular(36.0)),
-                  child: Image.network(
-                    widget.product.urlPhotos!,
-                    fit: BoxFit.fill,
-                    errorBuilder: (BuildContext context, Object exception,
-                        StackTrace? stackTrace) {
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
-                            Icon(
-                              Icons.hide_image,
-                              size: 400,
-                            ),
-                            Text(
-                              'Could not load image.',
-                              style: TextStyle(
-                                  fontSize: 15, fontStyle: FontStyle.italic),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                  bottomLeft: Radius.circular(36.0),
+                  bottomRight: Radius.circular(36.0)),
+                  child:CachedNetworkImage(
+                     fit: BoxFit.cover,
+                     imageUrl: widget.product.urlPhotos!,
+                     progressIndicatorBuilder:(context, url,downloadProgress) =>
+                        CircularProgressIndicator(value:downloadProgress.progress),
+                          errorWidget:(context, url, error) =>Icon(Icons.hide_image),),
                 ),
                 SafeArea(
                     child: Padding(

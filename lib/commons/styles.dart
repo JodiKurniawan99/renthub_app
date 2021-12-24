@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final Color primary = const Color(0xFF151528);
-final Color secondary = const Color(0xFFD6D6ED);
+const Color primary = Color(0xFF151528);
+const Color secondary = Color(0xFFD6D6ED);
 
 final TextTheme myTextTheme = TextTheme(
   headline1: GoogleFonts.montserrat(

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:renthub_app/screens/update_product_screen.dart';
@@ -39,11 +40,19 @@ class ListCustOrder extends StatelessWidget {
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(8.0),
-                                          child: Image.network(
-                                            document['urlPhotos'],
-                                            width: 70,
+                                          child: CachedNetworkImage(
                                             height: 70,
+                                            width: 70,
                                             fit: BoxFit.cover,
+                                            imageUrl: document['urlPhotos'],
+                                            progressIndicatorBuilder: (context,
+                                                    url, downloadProgress) =>
+                                                CircularProgressIndicator(
+                                                    value: downloadProgress
+                                                        .progress),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Icon(Icons.hide_image),
                                           ),
                                         ),
                                       ),
@@ -86,20 +95,6 @@ class ListCustOrder extends StatelessWidget {
                                         width: 30,
                                       ),
                                     ]),
-                                    // IconButton(
-                                    //     onPressed: () async {
-                                    //       FirebaseFirestore.instance
-                                    //           .collection('Products')
-                                    //           .doc(document.id)
-                                    //           .delete();
-                                    //       Reference refer = FirebaseStorage
-                                    //           .instance
-                                    //           .refFromURL(
-                                    //               document['urlPhotos']);
-                                    //       await refer.delete();
-                                    //     },
-                                    //     icon: Icon(Icons.delete,
-                                    //         color: Colors.redAccent))
                                   ],
                                 ),
                                 SizedBox(height: 10),

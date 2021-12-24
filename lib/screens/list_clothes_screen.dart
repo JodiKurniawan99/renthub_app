@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -73,34 +74,14 @@ class _ListClothesScreen extends State<ListClothesScreen> {
                                 Expanded(
                                     child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  child: Image.network(
-                                    snapshot.data.docs[index].get('urlPhotos'),
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (BuildContext context,
-                                        Object exception,
-                                        StackTrace? stackTrace) {
-                                      return Center(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: const [
-                                            Icon(
-                                              Icons.hide_image,
-                                              size: 100,
-                                            ),
-                                            Text(
-                                              'Could not load image.',
-                                              style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                  child: CachedNetworkImage(
+                                            // height: 80,
+                                            width: 200,
+                                            fit: BoxFit.cover,
+                                            imageUrl: snapshot.data.docs[index].get('urlPhotos'),
+                                            errorWidget: (context, url, error) => Icon(Icons.hide_image),
+                                           ),
+                                  
                                 )),
                                 const SizedBox(height: 8.0),
                                 Text(
